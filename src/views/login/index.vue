@@ -80,20 +80,23 @@ export default {
     login() {
       this.$refs.loginFrom.validate(valid => {
         if (valid) {
+          
           this.axios
+
             .post(
               "http://ttapi.research.itcast.cn/mp/v1_0/authorizations",
               this.loginFrom
             )
-            .then(() => {
-              this.$router.push("/");
-              // this.$message({
-              //   message: "登陆成功",
-              //   type: "success"
-              // });
+            .then((res) => {
               // const data = res.data
               //登陆成功到主页
               //保存登陆状态
+              //保存登录后返回得用户信息  包含token
+              //使用ses
+              //sionStorage来存储 关闭浏览器回话失效
+              //存储
+              window.sessionStorage.setItem('hm-73toutiao',JSON.stringify(res.data.data))
+              this.$router.push("/index");
             })
             .cath(() => {
               this.$message.error("发生未知错误");

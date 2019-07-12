@@ -2,36 +2,37 @@
   <el-container class="homepage">
     <el-aside class="homepage_kkk" :width="collapse?'64px':'200px'">
       <el-menu
-        default-active="1"
+        :default-active="this.$route.path"
         background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"
         style="border-right:none"
         :collapse="collapse"
         :collapse-transition="false"
+        router
       >
         <div class="homepage_logo" :class="{close:collapse}"></div>
-        <el-menu-item index="1">
+        <el-menu-item index="/index">
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="/compontes/text">
           <i class="el-icon-s-promotion"></i>
-          <span slot="title">发布文章</span>
+            <span slot="title">发布文章</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="/compontes/neirong">
           <i class="el-icon-document"></i>
           <span slot="title">内容管理</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="/compontes/pinglun">
           <i class="el-icon-s-comment"></i>
           <span slot="title">评论管理</span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="/compontes/sucai">
           <i class="el-icon-picture"></i>
           <span slot="title">素材管理</span>
         </el-menu-item>
-        <el-menu-item index="6">
+        <el-menu-item index="/compontes/fensi">
           <i class="el-icon-user"></i>
           <span slot="title">我的粉丝</span>
         </el-menu-item>
@@ -48,7 +49,7 @@
         <span class="homepage_text">江苏传智播客教育科技有限公司</span>
         <el-dropdown class="homepage_user">
           <span class="el-dropdown-link">
-            <img src="../../assets/images/66666.jpg" width="40px" style="vertical-align:middle" />
+            <img src="../../assets/images/66666.jpg" width="36px" style="vertical-align:middle" />
             &nbsp;&nbsp;&nbsp;小丽&nbsp;&nbsp;&nbsp;
             <i class="el-icon-arrow-down el-icon--right"></i>&nbsp;&nbsp;&nbsp;
           </span>
@@ -106,8 +107,7 @@ export default {
     }
   }
   .homepage_nav {
-    height: 50px;
-    line-height: 50px;
+    line-height: 60px;
     border-bottom: 2px solid #ccc;
 
     .homepage_user:hover {
