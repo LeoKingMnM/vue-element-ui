@@ -76,36 +76,42 @@ export default {
       checked: true
     };
   },
+
   methods: {
     login() {
-      this.$refs.loginFrom.validate(valid => {
+      this.$refs.loginFrom.validate(async valid => {
         if (valid) {
-          
-          this.axios
+          try {
+            const res = await this.axios.post("authorizations", this.loginFrom);
+            window.sessionStorage.setItem(
+              "hm-73toutiao",
+              JSON.stringify(res.data.data)
+            );
+            this.$router.push("/index");
+          }catch {
+            this.$message.error('用户名或密码错误')
+          }
 
-            .post(
-              "http://ttapi.research.itcast.cn/mp/v1_0/authorizations",
-              this.loginFrom
-            )
-            .then((res) => {
-              // const data = res.data
-              //登陆成功到主页
-              //保存登陆状态
-              //保存登录后返回得用户信息  包含token
-              //使用ses
-              //sionStorage来存储 关闭浏览器回话失效
-              //存储
-              window.sessionStorage.setItem('hm-73toutiao',JSON.stringify(res.data.data))
-              this.$router.push("/index");
-            })
-            .cath(() => {
-              this.$message.error("发生未知错误");
-            });
-        } else {
-          this.$message({
-            message: "登录失败",
-            type: "warning"
-          });
+          // this.axios
+          //   .post("authorizations", this.loginFrom)
+          //   .then(res => {
+          //     // const data = res.data
+          //     //登陆成功到主页
+          //     //保存登陆状态
+          //     //保存登录后返回得用户信息  包含token
+          //     //使用ses
+          //     //sionStorage来存储 关闭浏览器回话失效
+          //     //存储
+          //     window.sessionStorage.setItem(
+          //       "hm-73toutiao",
+          //       JSON.stringify(res.data.data)
+          //     );
+          //     this.$router.push("/index");
+          //   })
+
+          //   .cath(() => {
+          //     this.$message.error("发生未知错误");
+          //   });
         }
       });
     }

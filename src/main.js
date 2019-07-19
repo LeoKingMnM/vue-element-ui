@@ -6,12 +6,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import router from '@/router'
 
+import axios from '@/api/axios.js'
 
-import axios from '@/api/axios'
+import compontes from '@/compontes'
+import store from './store'
+Vue.use(compontes)
+
 Vue.prototype.axios = axios
-              
-
-
 
 
 // 即可  默认会去加载索引文件  index.js index.vue index.json
@@ -24,5 +25,6 @@ Vue.config.productionTip = false
 // 职责2：实例化根实例  render() 渲染APP组件   然后挂载到#app的容器内
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

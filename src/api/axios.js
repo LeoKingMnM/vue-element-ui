@@ -1,39 +1,43 @@
 // 封装axios
 import axios from 'axios'
+import JSONBig from 'json-bigint'
 
 const instance = axios.create({
-    baseURL:"http://ttapi.research.itcast.cn/mp/v1_0/",
-    // headers: {
-    //    Authorization: 'Bearer ' + JSON.parse(window.sessionStorage.getItem('hm-73toutiao')).token
-    // }
+  baseURL: "http://ttapi.research.itcast.cn/mp/v1_0/",
+  transformResponse: [(data) => {
+    if (data) {
+      return JSONBig.parse(data)
+    }
+    return data
+  }]
 })
 
 // 添加请求拦截器
 instance.interceptors.request.use((config) => {
-    // 在发送请求之前做些什么
-    const user = window.sessionStorage.getItem('hm-73toutiao')
-    if (user) {
-        config.headers={
-            Authorization:'Bearer ' + JSON.parse(user).token
-        }
+  // 在发送请求之前做些什么
+  const user = window.sessionStorage.getItem('hm-73toutiao')
+  if (user) {
+    config.headers = {
+      Authorization: 'Bearer ' + JSON.parse(user).token
     }
-    return config;
-  }, (error) => {
-    // 对请求错误做些什么
-    return Promise.reject(error);
-  });
+  }
+  return config;
+}, (error) => {
+  // 对请求错误做些什么
+  return Promise.reject(error);
+});
 
 // 添加响应拦截器
 instance.interceptors.response.use((response) => {
-    // 对响应数据做点什么
-    return response;
-  },(error) => {
-    // 对响应错误做点什么
-    if (error.response.status === 401) {
-        location.path = '#/'
-    }
-    return Promise.reject(error);
-  });
+  // 对响应数据做点什么
+  return response;
+}, (error) => {
+  // 对响应错误做点什么
+  if (error.response && error.response.status === 401) {
+    location.hash = '#/'
+  }
+  return Promise.reject(error);
+});
 
 
 
